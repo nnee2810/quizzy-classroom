@@ -1,0 +1,24 @@
+package migration
+
+import (
+	"github.com/nnee2810/mimi-core/logger"
+	"go.uber.org/zap"
+	"quizzy-classroom/entity"
+	"quizzy-classroom/model"
+	"quizzy-classroom/provider"
+)
+
+func Run(serviceConfig *model.ServiceConfig) {
+	provider, err := provider.Init(serviceConfig)
+	if err != nil {
+		logger.Error("failed to init provider", zap.Error(err))
+		return
+	}
+
+	if err := provider.Db.AutoMigrate(&entity.ClassroomEntity{}); err != nil {
+		logger.Error("failed to migrate database", zap.Error(err))
+		return
+	}
+
+	logger.Info("migrate database success")
+}
