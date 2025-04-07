@@ -2,11 +2,12 @@ package repository
 
 import (
 	"context"
+	"quizzy-classroom/entity"
 	"quizzy-classroom/provider"
 )
 
 type Repository interface {
-	SignIn(ctx context.Context, id string) error
+	CreateClassroom(ctx context.Context, classroom *entity.ClassroomEntity) error
 }
 
 type repositoryImpl struct {
