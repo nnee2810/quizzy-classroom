@@ -1,12 +1,13 @@
 package handler
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"github.com/nnee2810/mimi-core/model/res"
-	"github.com/nnee2810/mimi-core/value"
 	"quizzy-classroom/entity"
 	"quizzy-classroom/model/req"
 	"quizzy-classroom/util"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/nnee2810/mimi-core/model/res"
+	"github.com/nnee2810/mimi-core/value"
 )
 
 func (r *handlerImpl) CreateClassroom(c *fiber.Ctx) error {
@@ -21,9 +22,9 @@ func (r *handlerImpl) CreateClassroom(c *fiber.Ctx) error {
 	}
 
 	if err := r.CreateClassroomUseCase.Execute(c.Context(), &entity.ClassroomEntity{
-		UserID:    value.Get(c.Locals("user_id").(string)),
-		Name:      body.Name,
-		AvatarUrl: body.AvatarUrl,
+		UserID:    c.Locals("user_id").(string),
+		Name:      value.GetValue(body.Name, ""),
+		AvatarUrl: value.GetValue(body.AvatarUrl, ""),
 	}); err != nil {
 		return res.InternalServerError(c, err)
 	}
