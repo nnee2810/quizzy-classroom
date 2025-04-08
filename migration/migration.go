@@ -1,11 +1,12 @@
 package migration
 
 import (
-	"github.com/nnee2810/mimi-core/logger"
-	"go.uber.org/zap"
 	"quizzy-classroom/entity"
 	"quizzy-classroom/model"
 	"quizzy-classroom/provider"
+
+	"github.com/nnee2810/mimi-core/logger"
+	"go.uber.org/zap"
 )
 
 func Run(serviceConfig *model.ServiceConfig) {
@@ -15,7 +16,10 @@ func Run(serviceConfig *model.ServiceConfig) {
 		return
 	}
 
-	if err := provider.Db.AutoMigrate(&entity.ClassroomEntity{}); err != nil {
+	if err := provider.Db.AutoMigrate(
+		&entity.ClassroomEntity{},
+		&entity.ClassroomMember{},
+	); err != nil {
 		logger.Error("failed to migrate database", zap.Error(err))
 		return
 	}

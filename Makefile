@@ -1,8 +1,8 @@
 deb:
 	go get -u ./... && go mod tidy
 
-run-local:
+run:
 	go run main.go serve -e ./deploy/local.env
 
-migration-local:
+migration:
 	go run main.go migration -e ./deploy/local.env
