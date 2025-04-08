@@ -7,15 +7,15 @@ import (
 	"github.com/nnee2810/mimi-core/config"
 	"github.com/nnee2810/mimi-core/logger"
 	"go.uber.org/zap"
-	"quizzy-classroom/migration"
+	"quizzy-classroom/migrate"
 	"quizzy-classroom/model"
 
 	"github.com/spf13/cobra"
 )
 
-// migrationCmd represents the migration command
-var migrationCmd = &cobra.Command{
-	Use:   "migration",
+// migrateCmd represents the migrate command
+var migrateCmd = &cobra.Command{
+	Use:   "migrate",
 	Short: "A brief description of your command",
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
@@ -36,20 +36,20 @@ to quickly create a Cobra application.`,
 			return
 		}
 
-		migration.Run(&serviceConfig)
+		migrate.Run(&serviceConfig)
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(migrationCmd)
+	rootCmd.AddCommand(migrateCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// migrationCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// migrateCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	migrationCmd.Flags().StringP("env-path", "e", ".env", "Path to environment file")
+	migrateCmd.Flags().StringP("env-path", "e", ".env", "Path to environment file")
 }

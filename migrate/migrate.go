@@ -1,4 +1,4 @@
-package migration
+package migrate
 
 import (
 	"quizzy-classroom/entity"
@@ -19,6 +19,7 @@ func Run(serviceConfig *model.ServiceConfig) {
 	if err := provider.Db.AutoMigrate(
 		&entity.ClassroomEntity{},
 		&entity.ClassroomMember{},
+		&entity.InvitationEntity{},
 	); err != nil {
 		logger.Error("failed to migrate database", zap.Error(err))
 		return
