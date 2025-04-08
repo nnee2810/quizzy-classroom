@@ -1,7 +1,6 @@
 package server
 
 import (
-	_ "github.com/go-playground/validator/v10"
 	"quizzy-classroom/handler"
 	"quizzy-classroom/model"
 	"quizzy-classroom/provider"
@@ -28,7 +27,8 @@ func Run(serviceConfig *model.ServiceConfig) {
 	}
 	repository := repository.New(provider)
 	handler := handler.New(&handler.Inject{
-		CreateClassroomUseCase: usecase.NewCreateClassroomUseCase(repository),
+		CreateClassroomUseCase:        usecase.NewCreateClassroomUseCase(repository),
+		FilterClassroomMembersUseCase: usecase.NewFilterClassroomMembersUseCase(repository),
 	})
 
 	InitRouter(app, handler)

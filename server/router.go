@@ -1,8 +1,9 @@
 package server
 
 import (
-	"github.com/nnee2810/mimi-core/middleware"
 	"quizzy-classroom/handler"
+
+	"github.com/nnee2810/mimi-core/middleware"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -10,4 +11,5 @@ import (
 func InitRouter(app *fiber.App, handler handler.Handler) {
 	classroomGroup := app.Group("/classroom", middleware.JWTMiddleware)
 	classroomGroup.Post("/create", handler.CreateClassroom)
+	classroomGroup.Get("/:classroom_id/members", handler.FilterClassroomMembers)
 }
