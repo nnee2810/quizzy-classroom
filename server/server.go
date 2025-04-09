@@ -29,6 +29,7 @@ func Run(serviceConfig *model.ServiceConfig) {
 	handler := handler.New(&handler.Inject{
 		CreateClassroomUseCase:        usecase.NewCreateClassroomUseCase(repository),
 		FilterClassroomMembersUseCase: usecase.NewFilterClassroomMembersUseCase(repository),
+		InviteMemberUseCase:           usecase.NewInviteMemberUseCase(repository),
 	})
 
 	InitRouter(app, handler)
