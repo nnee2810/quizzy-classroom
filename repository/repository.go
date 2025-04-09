@@ -15,6 +15,7 @@ type Repository interface {
 	CreateInvitation(ctx context.Context, invitation *entity.InvitationEntity) error
 	IsInvitationExisting(ctx context.Context, classroomID string, receiverID string) (bool, error)
 	IsClassroomOwner(ctx context.Context, classroomID string, userID string) (bool, error)
+	FilterInvitations(ctx context.Context, receiverID string, params req.FilterInvitationsReq) (*record.Pagination[entity.InvitationEntity], error)
 }
 
 type repositoryImpl struct {
