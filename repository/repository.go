@@ -16,6 +16,8 @@ type Repository interface {
 	IsInvitationExisting(ctx context.Context, classroomID string, receiverID string) (bool, error)
 	IsClassroomOwner(ctx context.Context, classroomID string, userID string) (bool, error)
 	FilterInvitations(ctx context.Context, receiverID string, params req.FilterInvitationsReq) (*record.Pagination[entity.InvitationEntity], error)
+	GetInvitationByID(ctx context.Context, invitationID string) (*entity.InvitationEntity, error)
+	UpdateInvitationStatus(ctx context.Context, invitationID string, status entity.InvitationStatus) error
 }
 
 type repositoryImpl struct {
