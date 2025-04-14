@@ -17,4 +17,5 @@ func InitRouter(app *fiber.App, handler handler.Handler) {
 	invitationGroup := app.Group("/invitation", middleware.JWTMiddleware)
 	invitationGroup.Get("/filter", handler.FilterInvitations)
 	invitationGroup.Put("/reject/:id", handler.RejectInvitation)
+	invitationGroup.Put("/accept/:id", handler.AcceptInvitation)
 }
