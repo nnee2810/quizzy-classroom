@@ -19,6 +19,7 @@ type Repository interface {
 	GetInvitationByID(ctx context.Context, invitationID string) (*entity.InvitationEntity, error)
 	UpdateInvitationStatus(ctx context.Context, invitationID string, status entity.InvitationStatus) error
 	CreateClassroomMember(ctx context.Context, member *entity.ClassroomMember) error
+	FilterInvitedMembers(ctx context.Context, classroomID string, params req.FilterInvitedMembersReq) (*record.Pagination[entity.InvitationEntity], error)
 }
 
 type repositoryImpl struct {

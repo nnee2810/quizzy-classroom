@@ -33,6 +33,7 @@ func Run(serviceConfig *model.ServiceConfig) {
 		FilterInvitationsUseCase:      usecase.NewFilterInvitationsUseCase(repository),
 		RejectInvitationUseCase:       usecase.NewRejectInvitationUseCase(repository),
 		AcceptInvitationUseCase:       usecase.NewAcceptInvitationUseCase(repository),
+		FilterInvitedMembersUseCase:   usecase.NewFilterInvitedMembersUseCase(repository),
 	})
 
 	InitRouter(app, handler)

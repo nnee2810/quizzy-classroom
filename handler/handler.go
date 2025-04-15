@@ -13,6 +13,7 @@ type Handler interface {
 	FilterInvitations(c *fiber.Ctx) error
 	RejectInvitation(c *fiber.Ctx) error
 	AcceptInvitation(c *fiber.Ctx) error
+	FilterInvitedMembers(c *fiber.Ctx) error
 }
 
 type handlerImpl struct {
@@ -22,6 +23,7 @@ type handlerImpl struct {
 	FilterInvitationsUseCase      usecase.FilterInvitationsUseCase
 	RejectInvitationUseCase       usecase.RejectInvitationUseCase
 	AcceptInvitationUseCase       usecase.AcceptInvitationUseCase
+	FilterInvitedMembersUseCase   usecase.FilterInvitedMembersUseCase
 }
 
 type Inject struct {
@@ -31,6 +33,7 @@ type Inject struct {
 	FilterInvitationsUseCase      usecase.FilterInvitationsUseCase
 	RejectInvitationUseCase       usecase.RejectInvitationUseCase
 	AcceptInvitationUseCase       usecase.AcceptInvitationUseCase
+	FilterInvitedMembersUseCase   usecase.FilterInvitedMembersUseCase
 }
 
 func New(inject *Inject) Handler {
@@ -41,5 +44,6 @@ func New(inject *Inject) Handler {
 		FilterInvitationsUseCase:      inject.FilterInvitationsUseCase,
 		RejectInvitationUseCase:       inject.RejectInvitationUseCase,
 		AcceptInvitationUseCase:       inject.AcceptInvitationUseCase,
+		FilterInvitedMembersUseCase:   inject.FilterInvitedMembersUseCase,
 	}
 }
