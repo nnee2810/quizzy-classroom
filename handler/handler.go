@@ -7,13 +7,13 @@ import (
 )
 
 type Handler interface {
-	CreateClassroom(c *fiber.Ctx) error
-	FilterClassroomMembers(c *fiber.Ctx) error
-	InviteMember(c *fiber.Ctx) error
-	FilterInvitations(c *fiber.Ctx) error
-	RejectInvitation(c *fiber.Ctx) error
-	AcceptInvitation(c *fiber.Ctx) error
-	FilterInvitedMembers(c *fiber.Ctx) error
+	CreateClassroom(c *fiber.Ctx) error        // Tạo lớp học
+	FilterClassroomMembers(c *fiber.Ctx) error // Lọc thành viên của lớp học
+	InviteMember(c *fiber.Ctx) error           // Mời thành viên vào lớp học
+	FilterInvitations(c *fiber.Ctx) error      // Lọc danh sách lời mời
+	RejectInvitation(c *fiber.Ctx) error       // Từ chối lời mời
+	AcceptInvitation(c *fiber.Ctx) error       // Chấp nhận lời mời
+	FilterInvitedMembers(c *fiber.Ctx) error   // Lọc danh sách thành viên đã được mời
 }
 
 type handlerImpl struct {
