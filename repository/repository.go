@@ -20,6 +20,7 @@ type Repository interface {
 	UpdateInvitationStatus(ctx context.Context, invitationID string, status entity.InvitationStatus) error
 	CreateClassroomMember(ctx context.Context, member *entity.ClassroomMember) error
 	FilterInvitedMembers(ctx context.Context, classroomID string, params req.FilterInvitedMembersReq) (*record.Pagination[entity.InvitationEntity], error)
+	FilterOwnedClassrooms(ctx context.Context, userID string, params req.FilterOwnedClassroomsReq) (*record.Pagination[entity.ClassroomEntity], error)
 }
 
 type repositoryImpl struct {
