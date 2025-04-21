@@ -14,7 +14,7 @@ func InitRouter(app *fiber.App, handler handler.Handler) {
 	classroomGroup.Post("/invite", handler.InviteMember)
 	classroomGroup.Get("/:classroom_id/members", handler.FilterClassroomMembers)
 	classroomGroup.Get("/:classroom_id/invited-members", handler.FilterInvitedMembers)
-	classroomGroup.Get("/owned", handler.FilterOwnedClassrooms)
+	classroomGroup.Get("/joined", handler.FilterJoinedClassrooms)
 
 	invitationGroup := app.Group("/invitation", middleware.JWTMiddleware)
 	invitationGroup.Get("/filter", handler.FilterInvitations)

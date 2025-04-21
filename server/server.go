@@ -1,17 +1,15 @@
 package server
 
 import (
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/nnee2810/mimi-core/logger"
+	"go.uber.org/zap"
 	"quizzy-classroom/handler"
 	"quizzy-classroom/model"
 	"quizzy-classroom/provider"
 	"quizzy-classroom/repository"
 	"quizzy-classroom/usecase"
-	"quizzy-classroom/util"
-
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/nnee2810/mimi-core/logger"
-	"go.uber.org/zap"
 )
 
 func Run(serviceConfig *model.ServiceConfig) {
@@ -34,11 +32,10 @@ func Run(serviceConfig *model.ServiceConfig) {
 		RejectInvitationUseCase:       usecase.NewRejectInvitationUseCase(repository),
 		AcceptInvitationUseCase:       usecase.NewAcceptInvitationUseCase(repository),
 		FilterInvitedMembersUseCase:   usecase.NewFilterInvitedMembersUseCase(repository),
-		FilterOwnedClassroomsUseCase:  usecase.NewFilterOwnedClassroomsUseCase(repository),
+		FilterJoinedClassroomsUseCase: usecase.NewFilterJoinedClassroomsUseCase(repository),
 	})
 
 	InitRouter(app, handler)
-	util.InitValidate()
 
 	if err := app.Listen(":" + serviceConfig.Port); err != nil {
 		logger.Error("failed to start server", zap.Error(err))

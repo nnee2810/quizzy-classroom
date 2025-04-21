@@ -8,8 +8,8 @@ import (
 	"github.com/nnee2810/mimi-core/model/res"
 )
 
-func (h *handlerImpl) FilterOwnedClassrooms(c *fiber.Ctx) error {
-	var params req.FilterOwnedClassroomsReq
+func (r *handlerImpl) FilterJoinedClassrooms(c *fiber.Ctx) error {
+	var params req.FilterJoinedClassroomsReq
 	if err := c.QueryParser(&params); err != nil {
 		return res.BadRequest(c, err)
 	}
@@ -21,7 +21,7 @@ func (h *handlerImpl) FilterOwnedClassrooms(c *fiber.Ctx) error {
 	// Lấy ID của người dùng hiện tại từ JWT token
 	userID := c.Locals("user_id").(string)
 
-	result, err := h.FilterOwnedClassroomsUseCase.Execute(c.Context(), userID, params)
+	result, err := r.FilterJoinedClassroomsUseCase.Execute(c.Context(), userID, params)
 	if err != nil {
 		return res.InternalServerError(c, err)
 	}
