@@ -6,7 +6,7 @@ require (
 	github.com/go-playground/validator/v10 v10.26.0
 	github.com/gofiber/fiber/v2 v2.52.6
 	github.com/nedpals/supabase-go v0.5.0
-	github.com/nnee2810/mimi-core v0.0.18
+	github.com/nnee2810/mimi-core v0.0.19
 	github.com/spf13/cobra v1.9.1
 	go.uber.org/zap v1.27.0
 	gorm.io/gorm v1.25.12
@@ -15,7 +15,7 @@ require (
 require (
 	github.com/andybalholm/brotli v1.1.1 // indirect
 	github.com/fsnotify/fsnotify v1.9.0 // indirect
-	github.com/gabriel-vasile/mimetype v1.4.8 // indirect
+	github.com/gabriel-vasile/mimetype v1.4.9 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-viper/mapstructure/v2 v2.2.1 // indirect
