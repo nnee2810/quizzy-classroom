@@ -20,4 +20,4 @@ type InvitationEntity struct {
 	Status      InvitationStatus `json:"status" gorm:"index"`
 }
 
-func (InvitationEntity) TableName() string { return "quizzy_classroom.invitations" }
+func (*InvitationEntity) TableName() string { return "quizzy_classroom.invitations" }

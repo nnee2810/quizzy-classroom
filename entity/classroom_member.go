@@ -17,6 +17,6 @@ type ClassroomMember struct {
 	InvitedByID string              `json:"invited_by_id"`
 }
 
-func (c ClassroomMember) TableName() string {
+func (*ClassroomMember) TableName() string {
 	return "quizzy_classroom.classroom_members"
 }

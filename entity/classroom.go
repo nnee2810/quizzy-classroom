@@ -10,6 +10,6 @@ type ClassroomEntity struct {
 	AvatarUrl string `json:"avatar_url"`
 }
 
-func (c *ClassroomEntity) TableName() string {
+func (*ClassroomEntity) TableName() string {
 	return "quizzy_classroom.classrooms"
 }
