@@ -1,4 +1,4 @@
-package server
+package http
 
 import (
 	"quizzy-classroom/handler"

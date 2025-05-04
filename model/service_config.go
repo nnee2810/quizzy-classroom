@@ -4,6 +4,8 @@ type ServiceConfig struct {
 	Env  string `mapstructure:"ENV"`
 	Port string `mapstructure:"PORT"`
 
+	GrpcPort string `mapstructure:"GRPC_PORT"`
+
 	DbHost     string `mapstructure:"DB_HOST"`
 	DbPort     string `mapstructure:"DB_PORT"`
 	DbUser     string `mapstructure:"DB_USER"`

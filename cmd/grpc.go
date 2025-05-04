@@ -7,15 +7,15 @@ import (
 	"github.com/nnee2810/mimi-core/config"
 	"github.com/nnee2810/mimi-core/logger"
 	"go.uber.org/zap"
+	"quizzy-classroom/grpc"
 	"quizzy-classroom/model"
-	"quizzy-classroom/server"
 
 	"github.com/spf13/cobra"
 )
 
-// serveCmd represents the serve command
-var serveCmd = &cobra.Command{
-	Use:   "serve",
+// grpcCmd represents the grpc command
+var grpcCmd = &cobra.Command{
+	Use:   "grpc",
 	Short: "A brief description of your command",
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
@@ -32,20 +32,20 @@ to quickly create a Cobra application.`,
 			return
 		}
 
-		server.Run(&serviceConfig)
+		grpc.Run(&serviceConfig)
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(serveCmd)
+	rootCmd.AddCommand(grpcCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// serveCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// grpcCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	serveCmd.Flags().StringP("env-path", "e", ".env", "Path to environment file")
+	grpcCmd.Flags().StringP("env-path", "e", ".env", "Path to environment file")
 }

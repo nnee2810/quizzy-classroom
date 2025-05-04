@@ -1,4 +1,4 @@
-package server
+package http
 
 import (
 	"github.com/gofiber/fiber/v2"
@@ -38,7 +38,7 @@ func Run(serviceConfig *model.ServiceConfig) {
 	InitRouter(app, handler)
 
 	if err := app.Listen(":" + serviceConfig.Port); err != nil {
-		logger.Error("failed to start server", zap.Error(err))
+		logger.Error("failed to start httpr", zap.Error(err))
 		return
 	}
 }
