@@ -16,6 +16,7 @@ type Handler interface {
 	FilterInvitedMembers(c *fiber.Ctx) error   // Lọc danh sách thành viên đã được mời
 	FilterJoinedClassrooms(c *fiber.Ctx) error // Lọc danh sách lớp học đã tham gia
 	GetClassroomStat(c *fiber.Ctx) error       // Lấy thống kê về lớp học
+	UpdateClassroom(c *fiber.Ctx) error        // Cập nhật thông tin lớp học
 }
 
 type handlerImpl struct {
@@ -28,6 +29,7 @@ type handlerImpl struct {
 	FilterInvitedMembersUseCase   usecase.FilterInvitedMembersUseCase
 	FilterJoinedClassroomsUseCase usecase.FilterJoinedClassroomsUseCase
 	GetClassroomStatUseCase       usecase.GetClassroomStatUseCase
+	UpdateClassroomUseCase        usecase.UpdateClassroomUseCase
 }
 
 type Inject struct {
@@ -40,6 +42,7 @@ type Inject struct {
 	FilterInvitedMembersUseCase   usecase.FilterInvitedMembersUseCase
 	FilterJoinedClassroomsUseCase usecase.FilterJoinedClassroomsUseCase
 	GetClassroomStatUseCase       usecase.GetClassroomStatUseCase
+	UpdateClassroomUseCase        usecase.UpdateClassroomUseCase
 }
 
 func New(inject *Inject) Handler {
@@ -53,5 +56,6 @@ func New(inject *Inject) Handler {
 		FilterInvitedMembersUseCase:   inject.FilterInvitedMembersUseCase,
 		FilterJoinedClassroomsUseCase: inject.FilterJoinedClassroomsUseCase,
 		GetClassroomStatUseCase:       inject.GetClassroomStatUseCase,
+		UpdateClassroomUseCase:        inject.UpdateClassroomUseCase,
 	}
 }
