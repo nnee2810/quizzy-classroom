@@ -1,15 +1,16 @@
 package http
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/nnee2810/mimi-core/logger"
-	"go.uber.org/zap"
 	"quizzy-classroom/handler"
 	"quizzy-classroom/model"
 	"quizzy-classroom/provider"
 	"quizzy-classroom/repository"
 	"quizzy-classroom/usecase"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/nnee2810/mimi-core/logger"
+	"go.uber.org/zap"
 )
 
 func Run(serviceConfig *model.ServiceConfig) {
@@ -33,6 +34,7 @@ func Run(serviceConfig *model.ServiceConfig) {
 		AcceptInvitationUseCase:       usecase.NewAcceptInvitationUseCase(repository),
 		FilterInvitedMembersUseCase:   usecase.NewFilterInvitedMembersUseCase(repository),
 		FilterJoinedClassroomsUseCase: usecase.NewFilterJoinedClassroomsUseCase(repository),
+		GetClassroomStatUseCase:       usecase.NewGetClassroomStatUseCase(repository),
 	})
 
 	InitRouter(app, handler)
