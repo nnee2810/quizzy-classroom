@@ -28,6 +28,8 @@ func Run(serviceConfig *model.ServiceConfig) {
 	handler := handler.New(&handler.Inject{
 		CreateClassroomUseCase:        usecase.NewCreateClassroomUseCase(repository),
 		FilterClassroomMembersUseCase: usecase.NewFilterClassroomMembersUseCase(repository),
+		UpdateClassroomUseCase:        usecase.NewUpdateClassroomUseCase(repository),
+		GetClassroomUseCase:           usecase.NewGetClassroomUseCase(repository),
 		InviteMemberUseCase:           usecase.NewInviteMemberUseCase(repository),
 		FilterInvitationsUseCase:      usecase.NewFilterInvitationsUseCase(repository),
 		RejectInvitationUseCase:       usecase.NewRejectInvitationUseCase(repository),
@@ -35,7 +37,6 @@ func Run(serviceConfig *model.ServiceConfig) {
 		FilterInvitedMembersUseCase:   usecase.NewFilterInvitedMembersUseCase(repository),
 		FilterJoinedClassroomsUseCase: usecase.NewFilterJoinedClassroomsUseCase(repository),
 		GetClassroomStatUseCase:       usecase.NewGetClassroomStatUseCase(repository),
-		UpdateClassroomUseCase:        usecase.NewUpdateClassroomUseCase(repository),
 	})
 
 	InitRouter(app, handler)

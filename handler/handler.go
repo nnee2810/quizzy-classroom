@@ -9,6 +9,8 @@ import (
 type Handler interface {
 	CreateClassroom(c *fiber.Ctx) error        // Tạo lớp học
 	FilterClassroomMembers(c *fiber.Ctx) error // Lọc thành viên của lớp học
+	UpdateClassroom(c *fiber.Ctx) error        // Cập nhật thông tin lớp học
+	GetClassroomDetail(c *fiber.Ctx) error     // Lấy chi tiết thông tin lớp học
 	InviteMember(c *fiber.Ctx) error           // Mời thành viên vào lớp học
 	FilterInvitations(c *fiber.Ctx) error      // Lọc danh sách lời mời
 	RejectInvitation(c *fiber.Ctx) error       // Từ chối lời mời
@@ -16,7 +18,6 @@ type Handler interface {
 	FilterInvitedMembers(c *fiber.Ctx) error   // Lọc danh sách thành viên đã được mời
 	FilterJoinedClassrooms(c *fiber.Ctx) error // Lọc danh sách lớp học đã tham gia
 	GetClassroomStat(c *fiber.Ctx) error       // Lấy thống kê về lớp học
-	UpdateClassroom(c *fiber.Ctx) error        // Cập nhật thông tin lớp học
 }
 
 type handlerImpl struct {
@@ -30,6 +31,7 @@ type handlerImpl struct {
 	FilterJoinedClassroomsUseCase usecase.FilterJoinedClassroomsUseCase
 	GetClassroomStatUseCase       usecase.GetClassroomStatUseCase
 	UpdateClassroomUseCase        usecase.UpdateClassroomUseCase
+	GetClassroomUseCase           usecase.GetClassroomUseCase
 }
 
 type Inject struct {
@@ -43,6 +45,7 @@ type Inject struct {
 	FilterJoinedClassroomsUseCase usecase.FilterJoinedClassroomsUseCase
 	GetClassroomStatUseCase       usecase.GetClassroomStatUseCase
 	UpdateClassroomUseCase        usecase.UpdateClassroomUseCase
+	GetClassroomUseCase           usecase.GetClassroomUseCase
 }
 
 func New(inject *Inject) Handler {
@@ -57,5 +60,6 @@ func New(inject *Inject) Handler {
 		FilterJoinedClassroomsUseCase: inject.FilterJoinedClassroomsUseCase,
 		GetClassroomStatUseCase:       inject.GetClassroomStatUseCase,
 		UpdateClassroomUseCase:        inject.UpdateClassroomUseCase,
+		GetClassroomUseCase:           inject.GetClassroomUseCase,
 	}
 }
