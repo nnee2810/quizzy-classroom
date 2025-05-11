@@ -26,6 +26,7 @@ type Repository interface {
 	UpdateClassroom(ctx context.Context, classroomID string, classroom *entity.ClassroomEntity) error
 
 	GetUserIDByEmail(ctx context.Context, email string) (string, error)
+	GetUserProfilesByIDs(ctx context.Context, userIDs []string) (map[string]entity.UserProfileEntity, error)
 }
 
 type repositoryImpl struct {

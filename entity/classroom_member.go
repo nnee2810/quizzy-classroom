@@ -15,6 +15,7 @@ type ClassroomMember struct {
 	UserID      string              `json:"user_id" gorm:"uniqueIndex:idx_classroom_user"`
 	Role        ClassroomMemberRole `json:"role"`
 	InvitedByID string              `json:"invited_by_id"`
+	FullName    string              `json:"full_name" gorm:"-"`
 }
 
 func (*ClassroomMember) TableName() string {

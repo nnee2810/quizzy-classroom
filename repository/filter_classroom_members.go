@@ -2,11 +2,12 @@ package repository
 
 import (
 	"context"
+	"quizzy-classroom/entity"
+	"quizzy-classroom/model/req"
+
 	"github.com/nnee2810/mimi-core/gorm"
 	"github.com/nnee2810/mimi-core/record"
 	"github.com/nnee2810/mimi-core/value"
-	"quizzy-classroom/entity"
-	"quizzy-classroom/model/req"
 )
 
 func (r *repositoryImpl) FilterClassroomMembers(ctx context.Context, classroomID string, params req.FilterClassroomMembersReq) (*record.Pagination[entity.ClassroomMember], error) {
@@ -24,6 +25,20 @@ func (r *repositoryImpl) FilterClassroomMembers(ctx context.Context, classroomID
 		Find(&classroomMembers).
 		Error; err != nil {
 		return nil, err
+	}
+
+	userIDs := make([]string, len(classroomMembers))
+	for i, member := range classroomMembers {
+		userIDs[i] = member.UserID
+	}
+
+	userMap, err := r.GetUserProfilesByIDs(ctx, userIDs)
+	if err != nil {
+		return nil, err
+	}
+
+	for i, member := range classroomMembers {
+		classroomMembers[i].FullName = userMap[member.UserID].Name
 	}
 
 	pagination.Rows = classroomMembers
