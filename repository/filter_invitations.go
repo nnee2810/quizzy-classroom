@@ -29,6 +29,7 @@ func (r *repositoryImpl) FilterInvitations(ctx context.Context, receiverID strin
 	var invitations []entity.InvitationEntity
 	if err := query.
 		Scopes(gorm.Paginate(&pagination)).
+		Preload("Classroom").
 		Find(&invitations).
 		Error; err != nil {
 		return nil, err

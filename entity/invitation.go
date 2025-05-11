@@ -18,6 +18,8 @@ type InvitationEntity struct {
 	SenderID    string           `json:"sender_id" gorm:"index"`
 	ReceiverID  string           `json:"receiver_id" gorm:"index"`
 	Status      InvitationStatus `json:"status" gorm:"index"`
+
+	Classroom *ClassroomEntity `json:"classroom" gorm:"foreignKey:ClassroomID"`
 }
 
 func (*InvitationEntity) TableName() string { return "quizzy_classroom.invitations" }
