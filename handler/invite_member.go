@@ -12,7 +12,7 @@ import (
 	"github.com/nnee2810/mimi-core/value"
 )
 
-func (r *handlerImpl) InviteMember(c *fiber.Ctx) error {
+func (h *handlerImpl) InviteMember(c *fiber.Ctx) error {
 	var body req.InviteMemberRequest
 
 	if err := c.BodyParser(&body); err != nil {
@@ -23,7 +23,7 @@ func (r *handlerImpl) InviteMember(c *fiber.Ctx) error {
 		return res.BadRequest(c, err)
 	}
 
-	if err := r.InviteMemberUseCase.Execute(c.Context(), &entity.InvitationEntity{
+	if err := h.InviteMemberUseCase.Execute(c.Context(), &entity.InvitationEntity{
 		ClassroomID: value.GetValue(body.ClassroomID, ""),
 		SenderID:    c.Locals("user_id").(string),
 		ReceiverID:  value.GetValue(body.ReceiverID, ""),

@@ -9,7 +9,7 @@ import (
 	"github.com/nnee2810/mimi-core/model/res"
 )
 
-func (r *handlerImpl) FilterClassroomMembers(c *fiber.Ctx) error {
+func (h *handlerImpl) FilterClassroomMembers(c *fiber.Ctx) error {
 	classroomID := c.Params("classroom_id")
 	if classroomID == "" {
 		return res.BadRequest(c, errors.New("classroom_id is required"))
@@ -24,7 +24,7 @@ func (r *handlerImpl) FilterClassroomMembers(c *fiber.Ctx) error {
 		return res.BadRequest(c, err)
 	}
 
-	result, err := r.FilterClassroomMembersUseCase.Execute(c.Context(), classroomID, params)
+	result, err := h.FilterClassroomMembersUseCase.Execute(c.Context(), classroomID, params)
 	if err != nil {
 		return res.InternalServerError(c, err)
 	}

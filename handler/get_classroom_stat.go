@@ -5,10 +5,10 @@ import (
 	"github.com/nnee2810/mimi-core/model/res"
 )
 
-func (r *handlerImpl) GetClassroomStat(c *fiber.Ctx) error {
+func (h *handlerImpl) GetClassroomStat(c *fiber.Ctx) error {
 	userID := c.Locals("user_id").(string)
 
-	result, err := r.GetClassroomStatUseCase.Execute(c.Context(), userID)
+	result, err := h.GetClassroomStatUseCase.Execute(c.Context(), userID)
 	if err != nil {
 		return res.InternalServerError(c, err)
 	}

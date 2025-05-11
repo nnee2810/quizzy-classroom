@@ -9,7 +9,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func (r *handlerImpl) RejectInvitation(c *fiber.Ctx) error {
+func (h *handlerImpl) RejectInvitation(c *fiber.Ctx) error {
 	// Lấy ID của invitation từ URL
 	invitationID := c.Params("id")
 	if invitationID == "" {
@@ -19,7 +19,7 @@ func (r *handlerImpl) RejectInvitation(c *fiber.Ctx) error {
 	// Lấy ID của người dùng hiện tại từ JWT token
 	userID := c.Locals("user_id").(string)
 
-	if err := r.RejectInvitationUseCase.Execute(c.Context(), invitationID, userID); err != nil {
+	if err := h.RejectInvitationUseCase.Execute(c.Context(), invitationID, userID); err != nil {
 		// Kiểm tra các loại handle lỗi
 		switch {
 		case errors.Is(err, gorm.ErrRecordNotFound):

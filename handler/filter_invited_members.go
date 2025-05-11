@@ -10,7 +10,7 @@ import (
 	"github.com/nnee2810/mimi-core/model/res"
 )
 
-func (r *handlerImpl) FilterInvitedMembers(c *fiber.Ctx) error {
+func (h *handlerImpl) FilterInvitedMembers(c *fiber.Ctx) error {
 	// Lấy classroom_id từ URL
 	classroomID := c.Params("classroom_id")
 	if classroomID == "" {
@@ -26,7 +26,7 @@ func (r *handlerImpl) FilterInvitedMembers(c *fiber.Ctx) error {
 		return res.BadRequest(c, err)
 	}
 
-	result, err := r.FilterInvitedMembersUseCase.Execute(c.Context(), classroomID, c.Locals("user_id").(string), query)
+	result, err := h.FilterInvitedMembersUseCase.Execute(c.Context(), classroomID, c.Locals("user_id").(string), query)
 	if err != nil {
 		// Kiểm tra các loại lỗi
 		if errors.Is(err, qerror.ErrNotClassroomOwner) {

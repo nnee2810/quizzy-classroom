@@ -10,7 +10,7 @@ import (
 	"github.com/nnee2810/mimi-core/model/res"
 )
 
-func (r *handlerImpl) UpdateClassroom(c *fiber.Ctx) error {
+func (h *handlerImpl) UpdateClassroom(c *fiber.Ctx) error {
 	userID := c.Locals("user_id").(string)
 
 	var request req.UpdateClassroomReq
@@ -18,7 +18,7 @@ func (r *handlerImpl) UpdateClassroom(c *fiber.Ctx) error {
 		return res.BadRequest(c, err)
 	}
 
-	if err := r.UpdateClassroomUseCase.Execute(c.Context(), request.ID, userID, &entity.ClassroomEntity{
+	if err := h.UpdateClassroomUseCase.Execute(c.Context(), request.ID, userID, &entity.ClassroomEntity{
 		Name:        request.Name,
 		Description: request.Description,
 		AvatarUrl:   request.AvatarUrl,

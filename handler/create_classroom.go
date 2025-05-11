@@ -9,7 +9,7 @@ import (
 	"github.com/nnee2810/mimi-core/model/res"
 )
 
-func (r *handlerImpl) CreateClassroom(c *fiber.Ctx) error {
+func (h *handlerImpl) CreateClassroom(c *fiber.Ctx) error {
 	var body req.CreateClassroomRequest
 
 	if err := c.BodyParser(&body); err != nil {
@@ -20,7 +20,7 @@ func (r *handlerImpl) CreateClassroom(c *fiber.Ctx) error {
 		return res.BadRequest(c, err)
 	}
 
-	if err := r.CreateClassroomUseCase.Execute(c.Context(), &entity.ClassroomEntity{
+	if err := h.CreateClassroomUseCase.Execute(c.Context(), &entity.ClassroomEntity{
 		UserID:      c.Locals("user_id").(string),
 		Name:        body.Name,
 		Description: body.Description,
