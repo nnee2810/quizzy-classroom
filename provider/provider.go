@@ -1,8 +1,9 @@
 package provider
 
 import (
-	"github.com/nedpals/supabase-go"
 	"quizzy-classroom/model"
+
+	"github.com/nedpals/supabase-go"
 
 	"github.com/nnee2810/mimi-core/provider/database"
 	"gorm.io/gorm"
@@ -26,8 +27,8 @@ func Init(serviceConfig *model.ServiceConfig) (*Provider, error) {
 	}
 
 	supabaseClient := supabase.CreateClient(
-		serviceConfig.SupbaseUrl,
-		serviceConfig.SupabaseAnonKey,
+		serviceConfig.SupabaseUrl,
+		serviceConfig.SupabaseServiceRoleKey,
 	)
 
 	return &Provider{

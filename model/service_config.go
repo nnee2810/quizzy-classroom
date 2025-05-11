@@ -12,7 +12,7 @@ type ServiceConfig struct {
 	DbPassword string `mapstructure:"DB_PASSWORD"`
 	DbName     string `mapstructure:"DB_NAME"`
 
-	SupbaseUrl       string `mapstructure:"SUPABASE_URL"`
-	SupabaseAnonKey  string `mapstructure:"SUPABASE_ANON_KEY"`
-	SupbaseJwtSecret string `mapstructure:"SUPABASE_JWT_SECRET"`
+	SupabaseUrl            string `mapstructure:"SUPABASE_URL"`
+	SupabaseServiceRoleKey string `mapstructure:"SUPABASE_SERVICE_ROLE_KEY"`
+	SupabaseJwtSecret      string `mapstructure:"SUPABASE_JWT_SECRET"`
 }
