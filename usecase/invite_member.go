@@ -11,7 +11,7 @@ import (
 )
 
 type InviteMemberUseCase interface {
-	Execute(ctx context.Context, invitation *entity.InvitationEntity) error
+	Execute(ctx context.Context, receiverEmail string, invitation *entity.InvitationEntity) error
 }
 
 type inviteMemberUseCaseImpl struct {
@@ -24,7 +24,7 @@ func NewInviteMemberUseCase(repo repository.Repository) InviteMemberUseCase {
 	}
 }
 
-func (u *inviteMemberUseCaseImpl) Execute(ctx context.Context, invitation *entity.InvitationEntity) error {
+func (u *inviteMemberUseCaseImpl) Execute(ctx context.Context, receiverEmail string, invitation *entity.InvitationEntity) error {
 	// Kiểm tra xem người dùng có phải là chủ sở hữu của classroom không
 	isOwner, err := u.Repo.IsClassroomOwner(ctx, invitation.ClassroomID, invitation.SenderID)
 	if err != nil {
@@ -34,6 +34,16 @@ func (u *inviteMemberUseCaseImpl) Execute(ctx context.Context, invitation *entit
 
 	if !isOwner {
 		return qerror.ErrNotClassroomOwner
+	}
+
+	invitation.ReceiverID, err = u.Repo.GetUserIDByEmail(ctx, receiverEmail)
+	if err != nil {
+		logger.Error("failed to get user by email", zap.Error(err))
+		return err
+	}
+
+	if invitation.SenderID == invitation.ReceiverID {
+		return qerror.ErrCannotInviteYourself
 	}
 
 	// Kiểm tra xem người nhận đã có lời mời nào đang ở trạng thái pending hoặc accepted chưa

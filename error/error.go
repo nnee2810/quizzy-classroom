@@ -12,4 +12,6 @@ var (
 	ErrInvitationNotPending         = errors.New("invitation is not in pending status")
 	ErrNotInvitationReceiver        = errors.New("user is not the receiver of this invitation")
 	ErrUserAlreadyClassroomMember   = errors.New("user is already a member of this classroom")
+	ErrCannotInviteYourself         = errors.New("cannot invite yourself")
+	ErrEmailNotFound                = errors.New("email not found")
 )
