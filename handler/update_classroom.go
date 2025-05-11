@@ -2,6 +2,7 @@ package handler
 
 import (
 	"errors"
+	"quizzy-classroom/entity"
 	qerror "quizzy-classroom/error"
 	"quizzy-classroom/model/req"
 
@@ -10,7 +11,6 @@ import (
 )
 
 func (r *handlerImpl) UpdateClassroom(c *fiber.Ctx) error {
-	classroomID := c.Params("classroom_id")
 	userID := c.Locals("user_id").(string)
 
 	var request req.UpdateClassroomReq
@@ -18,7 +18,11 @@ func (r *handlerImpl) UpdateClassroom(c *fiber.Ctx) error {
 		return res.BadRequest(c, err)
 	}
 
-	if err := r.UpdateClassroomUseCase.Execute(c.Context(), classroomID, userID, request); err != nil {
+	if err := r.UpdateClassroomUseCase.Execute(c.Context(), request.ID, userID, &entity.ClassroomEntity{
+		Name:        request.Name,
+		Description: request.Description,
+		AvatarUrl:   request.AvatarUrl,
+	}); err != nil {
 		if errors.Is(err, qerror.ErrNotClassroomOwner) {
 			return res.Forbidden(c, err)
 		}

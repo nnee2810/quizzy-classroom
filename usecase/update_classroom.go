@@ -2,8 +2,8 @@ package usecase
 
 import (
 	"context"
+	"quizzy-classroom/entity"
 	qerror "quizzy-classroom/error"
-	"quizzy-classroom/model/req"
 	"quizzy-classroom/repository"
 
 	"github.com/nnee2810/mimi-core/logger"
@@ -11,7 +11,7 @@ import (
 )
 
 type UpdateClassroomUseCase interface {
-	Execute(ctx context.Context, classroomID string, userID string, req req.UpdateClassroomReq) error
+	Execute(ctx context.Context, classroomID string, userID string, classroom *entity.ClassroomEntity) error
 }
 
 type updateClassroomUseCaseImpl struct {
@@ -24,7 +24,7 @@ func NewUpdateClassroomUseCase(repo repository.Repository) UpdateClassroomUseCas
 	}
 }
 
-func (u *updateClassroomUseCaseImpl) Execute(ctx context.Context, classroomID string, userID string, req req.UpdateClassroomReq) error {
+func (u *updateClassroomUseCaseImpl) Execute(ctx context.Context, classroomID string, userID string, classroom *entity.ClassroomEntity) error {
 	// Kiểm tra xem người dùng có phải là chủ sở hữu của lớp học không
 	isOwner, err := u.Repo.IsClassroomOwner(ctx, classroomID, userID)
 	if err != nil {
@@ -36,7 +36,7 @@ func (u *updateClassroomUseCaseImpl) Execute(ctx context.Context, classroomID st
 	}
 
 	// Cập nhật thông tin lớp học
-	if err := u.Repo.UpdateClassroom(ctx, classroomID, req); err != nil {
+	if err := u.Repo.UpdateClassroom(ctx, classroomID, classroom); err != nil {
 		logger.Error("failed to update classroom", zap.String("classroom id", classroomID), zap.Error(err))
 		return err
 	}
