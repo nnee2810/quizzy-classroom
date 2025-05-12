@@ -38,7 +38,7 @@ func (r *repositoryImpl) FilterClassroomMembers(ctx context.Context, classroomID
 	}
 
 	for i, member := range classroomMembers {
-		classroomMembers[i].FullName = userMap[member.UserID].Name
+		classroomMembers[i].FullName = userMap[member.UserID].FullName
 	}
 
 	pagination.Rows = classroomMembers
