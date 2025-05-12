@@ -13,7 +13,7 @@ func InitRouter(app *fiber.App, handler handler.Handler) {
 	classroomGroup.Post("/create", handler.CreateClassroom)
 	classroomGroup.Post("/invite", handler.InviteMember)
 	classroomGroup.Get("/:classroom_id/members", handler.FilterClassroomMembers)
-	classroomGroup.Get("/:classroom_id/invited-members", handler.FilterInvitedMembers)
+	classroomGroup.Get("/:classroom_id/invitations", handler.FilterClassroomInvitations)
 	classroomGroup.Get("/:classroom_id/detail", handler.GetClassroomDetail)
 	classroomGroup.Get("/joined", handler.FilterJoinedClassrooms)
 	classroomGroup.Get("/stat", handler.GetClassroomStat)

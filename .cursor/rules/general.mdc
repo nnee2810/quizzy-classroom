@@ -1,0 +1,77 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Project Structure and Conventions
+
+## Tech Stack
+- Language: Go
+- Architecture: Clean Architecture with Domain-Driven Design (DDD)
+- Database: PostgreSQL
+- API: gRPC and HTTP REST
+- Container: Docker
+
+## Project Structure
+The project follows a clean architecture pattern with the following main directories:
+
+- `cmd/`: Application entry points and main functions
+- `entity/`: Domain entities and business objects
+- `repository/`: Data access layer and database interactions
+- `usecase/`: Business logic and use cases
+- `handler/`: API handlers for HTTP and gRPC
+- `model/`: Data models and DTOs
+- `http/`: HTTP server and middleware
+- `grpc/`: gRPC server and service definitions
+- `error/`: Custom error definitions
+- `util/`: Utility functions and helpers
+- `migrate/`: Database migration scripts
+- `provider/`: Dependency injection and service providers
+- `deploy/`: Deployment configurations
+
+## Code Conventions
+
+### Naming Conventions
+- Use PascalCase for exported types and functions
+- Use camelCase for unexported types and functions
+- Use snake_case for file names
+- Use meaningful and descriptive names
+
+### File Organization
+- Each package should have its own directory
+- Related files should be grouped together
+- Keep files focused and single-purpose
+- Use interfaces for abstraction
+
+### Error Handling
+- Use custom error types defined in the `error` package
+- Always check and handle errors appropriately
+- Provide meaningful error messages
+
+### Testing
+- Write unit tests for all business logic
+- Use table-driven tests where appropriate
+- Mock external dependencies in tests
+- Maintain high test coverage
+
+### Documentation
+- Document all exported types and functions
+- Use clear and concise comments
+- Keep documentation up to date
+- Follow Go documentation conventions
+
+## Development Workflow
+1. Create feature branch from main
+2. Implement changes following conventions
+3. Write tests for new functionality
+4. Update documentation
+5. Create pull request
+6. Code review
+7. Merge to main
+
+## Dependencies
+- Use Go modules for dependency management
+- Keep dependencies up to date
+- Document external dependencies
+- Use vendor directory for production builds
+

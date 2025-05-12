@@ -26,17 +26,17 @@ func Run(serviceConfig *model.ServiceConfig) {
 	}
 	repository := repository.New(provider)
 	handler := handler.New(&handler.Inject{
-		CreateClassroomUseCase:        usecase.NewCreateClassroomUseCase(repository),
-		FilterClassroomMembersUseCase: usecase.NewFilterClassroomMembersUseCase(repository),
-		UpdateClassroomUseCase:        usecase.NewUpdateClassroomUseCase(repository),
-		GetClassroomUseCase:           usecase.NewGetClassroomUseCase(repository),
-		InviteMemberUseCase:           usecase.NewInviteMemberUseCase(repository),
-		FilterInvitationsUseCase:      usecase.NewFilterInvitationsUseCase(repository),
-		RejectInvitationUseCase:       usecase.NewRejectInvitationUseCase(repository),
-		AcceptInvitationUseCase:       usecase.NewAcceptInvitationUseCase(repository),
-		FilterInvitedMembersUseCase:   usecase.NewFilterInvitedMembersUseCase(repository),
-		FilterJoinedClassroomsUseCase: usecase.NewFilterJoinedClassroomsUseCase(repository),
-		GetClassroomStatUseCase:       usecase.NewGetClassroomStatUseCase(repository),
+		CreateClassroomUseCase:            usecase.NewCreateClassroomUseCase(repository),
+		FilterClassroomMembersUseCase:     usecase.NewFilterClassroomMembersUseCase(repository),
+		UpdateClassroomUseCase:            usecase.NewUpdateClassroomUseCase(repository),
+		GetClassroomUseCase:               usecase.NewGetClassroomUseCase(repository),
+		InviteMemberUseCase:               usecase.NewInviteMemberUseCase(repository),
+		FilterInvitationsUseCase:          usecase.NewFilterInvitationsUseCase(repository),
+		RejectInvitationUseCase:           usecase.NewRejectInvitationUseCase(repository),
+		AcceptInvitationUseCase:           usecase.NewAcceptInvitationUseCase(repository),
+		FilterClassroomInvitationsUseCase: usecase.NewFilterClassroomInvitationsUseCase(repository),
+		FilterJoinedClassroomsUseCase:     usecase.NewFilterJoinedClassroomsUseCase(repository),
+		GetClassroomStatUseCase:           usecase.NewGetClassroomStatUseCase(repository),
 	})
 
 	InitRouter(app, handler)

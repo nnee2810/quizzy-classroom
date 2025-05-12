@@ -1,0 +1,241 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# API Development Guide
+
+This guide outlines the step-by-step process for creating a new API endpoint following clean architecture principles.
+
+## Important Notes Before Starting
+
+1. **Follow Existing Structure**
+   - Always check existing implementations in the project first
+   - Use existing patterns, utilities, and helpers
+   - Maintain consistency with current codebase
+   - Do not introduce new patterns without discussion
+
+2. **Reuse Existing Components**
+   - Use existing error types from `error/` package
+   - Use existing response wrappers
+   - Use existing validation patterns
+   - Use existing middleware and utilities
+
+3. **When Something is Missing**
+   - If a required component or pattern doesn't exist, DO NOT create it immediately
+   - First, check if there's a similar implementation that can be extended
+   - If nothing exists, ask for guidance before implementing
+   - Document the decision and implementation approach
+
+4. **Code Review Requirements**
+   - All new implementations must follow existing patterns
+   - Any deviation from existing patterns must be justified
+   - New patterns must be discussed and approved
+   - Documentation must be updated accordingly
+
+## 1. Create Request/Response Models
+Location: `model/request/` and `model/response/` (optional)
+
+Example:
+```go
+// model/request/create_user.go
+type CreateUserRequest struct {
+    Name     string `json:"name" validate:"required"`
+    Email    string `json:"email" validate:"required,email"`
+    Password string `json:"password" validate:"required,min=6"`
+}
+
+// model/response/user.go
+type UserResponse struct {
+    ID        string    `json:"id"`
+    Name      string    `json:"name"`
+    Email     string    `json:"email"`
+    CreatedAt time.Time `json:"created_at"`
+}
+```
+
+## 2. Create Repository Method
+Location: `repository/`
+
+1. Define interface in repository:
+```go
+// repository/user.go
+type UserRepository interface {
+    Create(ctx context.Context, user *entity.User) error
+}
+```
+
+2. Implement repository:
+```go
+// repository/user_repository.go
+func (r *userRepository) Create(ctx context.Context, user *entity.User) error {
+    // Implementation
+}
+```
+
+## 3. Create Use Case
+Location: `usecase/`
+
+1. Define interface:
+```go
+// usecase/user.go
+type UserUseCase interface {
+    CreateUser(ctx context.Context, req *model.CreateUserRequest) (*model.UserResponse, error)
+}
+```
+
+2. Implement use case:
+```go
+// usecase/user_usecase.go
+func (u *userUseCase) CreateUser(ctx context.Context, req *model.CreateUserRequest) (*model.UserResponse, error) {
+    // Business logic implementation
+}
+```
+
+## 4. Create Handler
+Location: `handler/`
+
+1. Create handler struct:
+```go
+// handler/user_handler.go
+type UserHandler struct {
+    userUseCase usecase.UserUseCase
+}
+```
+
+2. Implement handler method:
+```go
+func (h *UserHandler) CreateUser(c *gin.Context) {
+    var req model.CreateUserRequest
+    if err := c.ShouldBindJSON(&req); err != nil {
+        // Handle error
+        return
+    }
+    
+    response, err := h.userUseCase.CreateUser(c.Request.Context(), &req)
+    if err != nil {
+        // Handle error
+        return
+    }
+    
+    c.JSON(http.StatusCreated, response)
+}
+```
+
+## 5. Register Handler in Routes
+Location: `http/router/`
+
+1. Add handler to router:
+```go
+// http/router/router.go
+func SetupRouter(userHandler *handler.UserHandler) *gin.Engine {
+    router := gin.Default()
+    
+    api := router.Group("/api/v1")
+    {
+        users := api.Group("/users")
+        {
+            users.POST("", userHandler.CreateUser)
+        }
+    }
+    
+    return router
+}
+```
+
+## 6. Dependency Injection
+Location: `provider/`
+
+```go
+// provider/provider.go
+func NewUserHandler(userUseCase usecase.UserUseCase) *handler.UserHandler {
+    return &handler.UserHandler{
+        userUseCase: userUseCase,
+    }
+}
+
+func NewUserUseCase(userRepo repository.UserRepository) usecase.UserUseCase {
+    return usecase.NewUserUseCase(userRepo)
+}
+
+func NewUserRepository(db *gorm.DB) repository.UserRepository {
+    return repository.NewUserRepository(db)
+}
+```
+
+## Best Practices
+
+1. **Error Handling**
+   - Use custom error types from `error/` package
+   - Return appropriate HTTP status codes
+   - Provide meaningful error messages
+
+2. **Validation**
+   - Validate request data using struct tags
+   - Implement custom validators when needed
+   - Return validation errors in a consistent format
+
+3. **Documentation**
+   - Add comments for exported types and functions
+   - Document API endpoints using Swagger/OpenAPI
+   - Include example requests and responses
+
+4. **Testing**
+   - Write unit tests for use cases
+   - Write integration tests for handlers
+   - Mock external dependencies
+   - Test error cases
+
+5. **Security**
+   - Implement authentication middleware
+   - Validate and sanitize input
+   - Use HTTPS in production
+   - Implement rate limiting
+
+## Example Flow
+
+1. Client sends POST request to `/api/v1/users`
+2. Request is validated and bound to `CreateUserRequest`
+3. Handler calls use case method
+4. Use case implements business logic
+5. Repository handles data persistence
+6. Response is returned to client
+
+## Common Patterns
+
+1. **Pagination**
+```go
+type PaginationRequest struct {
+    Page  int `form:"page" binding:"required,min=1"`
+    Limit int `form:"limit" binding:"required,min=1,max=100"`
+}
+
+type PaginationResponse struct {
+    Total int         `json:"total"`
+    Data  interface{} `json:"data"`
+}
+```
+
+2. **Filtering**
+```go
+type FilterRequest struct {
+    Search   string   `form:"search"`
+    Status   []string `form:"status"`
+    SortBy   string   `form:"sort_by"`
+    SortDesc bool     `form:"sort_desc"`
+}
+```
+
+3. **Response Wrapper**
+```go
+type Response struct {
+    Code    int         `json:"code"`
+    Message string      `json:"message"`
+    Data    interface{} `json:"data,omitempty"`
+}
+```
+
+
+
+
+optional

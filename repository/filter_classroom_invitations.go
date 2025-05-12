@@ -11,7 +11,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func (r *repositoryImpl) FilterInvitedMembers(ctx context.Context, classroomID string, params req.FilterInvitedMembersReq) (*record.Pagination[entity.InvitationEntity], error) {
+func (r *repositoryImpl) FilterClassroomInvitations(ctx context.Context, classroomID string, params req.FilterClassroomInvitationsReq) (*record.Pagination[entity.InvitationEntity], error) {
 	var (
 		pagination = record.Pagination[entity.InvitationEntity]{
 			Page:  value.GetValue(params.Page, 0),
@@ -33,6 +33,20 @@ func (r *repositoryImpl) FilterInvitedMembers(ctx context.Context, classroomID s
 		Find(&invitations).
 		Error; err != nil {
 		return nil, err
+	}
+
+	userIDs := make([]string, len(invitations))
+	for i, invitation := range invitations {
+		userIDs[i] = invitation.ReceiverID
+	}
+
+	userMap, err := r.GetUserProfilesByIDs(ctx, userIDs)
+	if err != nil {
+		return nil, err
+	}
+
+	for i, invitation := range invitations {
+		invitations[i].FullName = userMap[invitation.ReceiverID].FullName
 	}
 
 	pagination.Rows = invitations
