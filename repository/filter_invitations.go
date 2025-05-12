@@ -35,6 +35,20 @@ func (r *repositoryImpl) FilterInvitations(ctx context.Context, receiverID strin
 		return nil, err
 	}
 
+	userIDs := make([]string, len(invitations))
+	for i, invitation := range invitations {
+		userIDs[i] = invitation.ReceiverID
+	}
+
+	userMap, err := r.GetUserProfilesByIDs(ctx, userIDs)
+	if err != nil {
+		return nil, err
+	}
+
+	for i, invitation := range invitations {
+		invitations[i].FullName = userMap[invitation.ReceiverID].FullName
+	}
+
 	pagination.Rows = invitations
 	return &pagination, nil
 }
