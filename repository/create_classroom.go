@@ -13,7 +13,7 @@ func (r *repositoryImpl) CreateClassroom(ctx context.Context, classroom *entity.
 			return err
 		}
 
-		if err := tx.Create(&entity.ClassroomMember{
+		if err := tx.Create(&entity.ClassroomMemberEntity{
 			ClassroomID: value.GetValue(classroom.ID, ""),
 			UserID:      classroom.UserID,
 			Role:        entity.ClassroomMemberRoleTeacher,

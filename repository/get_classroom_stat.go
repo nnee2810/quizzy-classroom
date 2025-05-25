@@ -19,7 +19,7 @@ func (r *repositoryImpl) GetClassroomStat(ctx context.Context, userID string) (o
 
 	if err = r.Provider.Db.
 		WithContext(ctx).
-		Model(&entity.ClassroomMember{}).
+		Model(&entity.ClassroomMemberEntity{}).
 		Where("user_id = ? AND role = ?", userID, entity.ClassroomMemberRoleStudent).
 		Count(&joinedCount).
 		Error; err != nil {

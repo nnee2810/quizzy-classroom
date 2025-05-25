@@ -9,7 +9,7 @@ const (
 	ClassroomMemberRoleStudent ClassroomMemberRole = "student"
 )
 
-type ClassroomMember struct {
+type ClassroomMemberEntity struct {
 	record.BaseEntity
 	ClassroomID string              `json:"classroom_id" gorm:"uniqueIndex:idx_classroom_user"`
 	UserID      string              `json:"user_id" gorm:"uniqueIndex:idx_classroom_user"`
@@ -18,6 +18,6 @@ type ClassroomMember struct {
 	FullName    string              `json:"full_name" gorm:"-"`
 }
 
-func (*ClassroomMember) TableName() string {
+func (*ClassroomMemberEntity) TableName() string {
 	return "quizzy_classroom.classroom_members"
 }

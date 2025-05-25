@@ -12,7 +12,7 @@ import (
 )
 
 type FilterClassroomMembersUseCase interface {
-	Execute(ctx context.Context, classroomID string, params req.FilterClassroomMembersReq) (*record.Pagination[entity.ClassroomMember], error)
+	Execute(ctx context.Context, classroomID string, params req.FilterClassroomMembersReq) (*record.Pagination[entity.ClassroomMemberEntity], error)
 }
 
 type filterClassroomMembersUseCase struct {
@@ -23,7 +23,7 @@ func NewFilterClassroomMembersUseCase(repo repository.Repository) FilterClassroo
 	return &filterClassroomMembersUseCase{Repo: repo}
 }
 
-func (f *filterClassroomMembersUseCase) Execute(ctx context.Context, classroomID string, params req.FilterClassroomMembersReq) (*record.Pagination[entity.ClassroomMember], error) {
+func (f *filterClassroomMembersUseCase) Execute(ctx context.Context, classroomID string, params req.FilterClassroomMembersReq) (*record.Pagination[entity.ClassroomMemberEntity], error) {
 	result, err := f.Repo.FilterClassroomMembers(ctx, classroomID, params)
 	if err != nil {
 		logger.Error("failed to filter classroom members", zap.String("classroom id", classroomID), zap.Error((err)))

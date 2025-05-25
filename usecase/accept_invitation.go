@@ -42,7 +42,7 @@ func (u *acceptInvitationUseCaseImpl) Execute(ctx context.Context, invitationID 
 		return qerror.ErrInvitationNotPending
 	}
 
-	if err := u.Repo.CreateClassroomMember(ctx, &entity.ClassroomMember{
+	if err := u.Repo.CreateClassroomMember(ctx, &entity.ClassroomMemberEntity{
 		ClassroomID: invitation.ClassroomID,
 		UserID:      invitation.ReceiverID,
 		Role:        entity.ClassroomMemberRoleStudent,

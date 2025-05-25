@@ -12,14 +12,14 @@ import (
 type Repository interface {
 	CreateClassroom(ctx context.Context, classroom *entity.ClassroomEntity) error
 	GetClassroomByID(ctx context.Context, classroomID string) (*entity.ClassroomEntity, error)
-	FilterClassroomMembers(ctx context.Context, classroomID string, params req.FilterClassroomMembersReq) (*record.Pagination[entity.ClassroomMember], error)
+	FilterClassroomMembers(ctx context.Context, classroomID string, params req.FilterClassroomMembersReq) (*record.Pagination[entity.ClassroomMemberEntity], error)
 	CreateInvitation(ctx context.Context, invitation *entity.InvitationEntity) error
 	IsInvitationExisting(ctx context.Context, classroomID string, receiverID string) (bool, error)
 	IsClassroomOwner(ctx context.Context, classroomID string, userID string) (bool, error)
 	FilterInvitations(ctx context.Context, receiverID string, params req.FilterInvitationsReq) (*record.Pagination[entity.InvitationEntity], error)
 	GetInvitationByID(ctx context.Context, invitationID string) (*entity.InvitationEntity, error)
 	UpdateInvitationStatus(ctx context.Context, invitationID string, status entity.InvitationStatus) error
-	CreateClassroomMember(ctx context.Context, member *entity.ClassroomMember) error
+	CreateClassroomMember(ctx context.Context, member *entity.ClassroomMemberEntity) error
 	FilterClassroomInvitations(ctx context.Context, classroomID string, params req.FilterClassroomInvitationsReq) (*record.Pagination[entity.InvitationEntity], error)
 	FilterJoinedClassrooms(ctx context.Context, userID string, role entity.ClassroomMemberRole, params req.FilterJoinedClassroomsReq) (*record.Pagination[entity.ClassroomEntity], error)
 	GetClassroomStat(ctx context.Context, userID string) (ownedCount, joinedCount, pendingCount int64, err error)

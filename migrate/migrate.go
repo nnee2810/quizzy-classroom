@@ -18,7 +18,7 @@ func Run(serviceConfig *model.ServiceConfig) {
 
 	if err := provider.Db.AutoMigrate(
 		&entity.ClassroomEntity{},
-		&entity.ClassroomMember{},
+		&entity.ClassroomMemberEntity{},
 		&entity.InvitationEntity{},
 	); err != nil {
 		logger.Error("failed to migrate database", zap.Error(err))
