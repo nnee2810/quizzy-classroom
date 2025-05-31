@@ -25,6 +25,7 @@ type Repository interface {
 	GetClassroomStat(ctx context.Context, userID string) (ownedCount, joinedCount, pendingCount int64, err error)
 	UpdateClassroom(ctx context.Context, classroomID string, classroom *entity.ClassroomEntity) error
 	GetJoinedClassroomIDs(ctx context.Context, userID string) ([]string, error)
+	DeleteInvitation(ctx context.Context, invitationID string) error
 
 	GetUserIDByEmail(ctx context.Context, email string) (string, error)
 	GetUserProfilesByIDs(ctx context.Context, userIDs []string) (map[string]entity.UserProfileEntity, error)

@@ -23,4 +23,5 @@ func InitRouter(app *fiber.App, handler handler.Handler) {
 	invitationGroup.Get("/filter", handler.FilterInvitations)
 	invitationGroup.Put("/reject/:id", handler.RejectInvitation)
 	invitationGroup.Put("/accept/:id", handler.AcceptInvitation)
+	invitationGroup.Delete("/delete/:id", handler.DeleteInvitation)
 }
