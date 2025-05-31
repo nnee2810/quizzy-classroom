@@ -37,6 +37,7 @@ func Run(serviceConfig *model.ServiceConfig) {
 		FilterClassroomInvitationsUseCase: usecase.NewFilterClassroomInvitationsUseCase(repository),
 		FilterJoinedClassroomsUseCase:     usecase.NewFilterJoinedClassroomsUseCase(repository),
 		GetClassroomStatUseCase:           usecase.NewGetClassroomStatUseCase(repository),
+		DeleteInvitationUseCase:           usecase.NewDeleteInvitationUseCase(repository),
 	})
 
 	InitRouter(app, handler)
