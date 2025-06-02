@@ -11,6 +11,7 @@ import (
 func InitRouter(app *fiber.App, handler handler.Handler) {
 	classroomGroup := app.Group("/classroom", middleware.JWTMiddleware)
 	classroomGroup.Post("/create", handler.CreateClassroom)
+	classroomGroup.Get("/filter", handler.FilterClassrooms)
 	classroomGroup.Post("/invite", handler.InviteMember)
 	classroomGroup.Get("/:classroom_id/members", handler.FilterClassroomMembers)
 	classroomGroup.Get("/:classroom_id/invitations", handler.FilterClassroomInvitations)

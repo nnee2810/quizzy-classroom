@@ -12,6 +12,7 @@ import (
 type Repository interface {
 	CreateClassroom(ctx context.Context, classroom *entity.ClassroomEntity) error
 	GetClassroomByID(ctx context.Context, classroomID string) (*entity.ClassroomEntity, error)
+	FilterClassrooms(ctx context.Context, params req.FilterClassroomsReq) (*record.Pagination[entity.ClassroomEntity], error)
 	FilterClassroomMembers(ctx context.Context, classroomID string, params req.FilterClassroomMembersReq) (*record.Pagination[entity.ClassroomMemberEntity], error)
 	CreateInvitation(ctx context.Context, invitation *entity.InvitationEntity) error
 	IsInvitationExisting(ctx context.Context, classroomID string, receiverID string) (bool, error)

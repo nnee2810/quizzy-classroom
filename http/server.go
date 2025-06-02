@@ -27,6 +27,7 @@ func Run(serviceConfig *model.ServiceConfig) {
 	repository := repository.New(provider)
 	handler := handler.New(&handler.Inject{
 		CreateClassroomUseCase:            usecase.NewCreateClassroomUseCase(repository),
+		FilterClassroomsUseCase:           usecase.NewFilterClassroomsUseCase(repository),
 		FilterClassroomMembersUseCase:     usecase.NewFilterClassroomMembersUseCase(repository),
 		UpdateClassroomUseCase:            usecase.NewUpdateClassroomUseCase(repository),
 		GetClassroomUseCase:               usecase.NewGetClassroomUseCase(repository),

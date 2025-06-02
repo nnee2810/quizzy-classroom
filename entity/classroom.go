@@ -9,6 +9,7 @@ type ClassroomEntity struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	AvatarUrl   string `json:"avatar_url"`
+	FullName    string `json:"full_name,omitempty"` // Full name of the user who created the classroom
 }
 
 func (*ClassroomEntity) TableName() string {

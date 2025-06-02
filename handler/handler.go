@@ -8,6 +8,7 @@ import (
 
 type Handler interface {
 	CreateClassroom(c *fiber.Ctx) error            // Tạo lớp học
+	FilterClassrooms(c *fiber.Ctx) error           // Lọc danh sách lớp học
 	FilterClassroomMembers(c *fiber.Ctx) error     // Lọc thành viên của lớp học
 	UpdateClassroom(c *fiber.Ctx) error            // Cập nhật thông tin lớp học
 	GetClassroomDetail(c *fiber.Ctx) error         // Lấy chi tiết thông tin lớp học
@@ -24,6 +25,7 @@ type Handler interface {
 type handlerImpl struct {
 	CreateClassroomUseCase            usecase.CreateClassroomUseCase
 	InviteMemberUseCase               usecase.InviteMemberUseCase
+	FilterClassroomsUseCase           usecase.FilterClassroomsUseCase
 	FilterClassroomMembersUseCase     usecase.FilterClassroomMembersUseCase
 	FilterClassroomInvitationsUseCase usecase.FilterClassroomInvitationsUseCase
 	GetClassroomUseCase               usecase.GetClassroomUseCase
@@ -39,6 +41,7 @@ type handlerImpl struct {
 type Inject struct {
 	CreateClassroomUseCase            usecase.CreateClassroomUseCase
 	InviteMemberUseCase               usecase.InviteMemberUseCase
+	FilterClassroomsUseCase           usecase.FilterClassroomsUseCase
 	FilterClassroomMembersUseCase     usecase.FilterClassroomMembersUseCase
 	FilterClassroomInvitationsUseCase usecase.FilterClassroomInvitationsUseCase
 	GetClassroomUseCase               usecase.GetClassroomUseCase
@@ -55,6 +58,7 @@ func New(inject *Inject) Handler {
 	return &handlerImpl{
 		CreateClassroomUseCase:            inject.CreateClassroomUseCase,
 		InviteMemberUseCase:               inject.InviteMemberUseCase,
+		FilterClassroomsUseCase:           inject.FilterClassroomsUseCase,
 		FilterClassroomMembersUseCase:     inject.FilterClassroomMembersUseCase,
 		FilterClassroomInvitationsUseCase: inject.FilterClassroomInvitationsUseCase,
 		GetClassroomUseCase:               inject.GetClassroomUseCase,
