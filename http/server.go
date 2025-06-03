@@ -1,6 +1,7 @@
 package http
 
 import (
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"quizzy-classroom/handler"
 	"quizzy-classroom/model"
 	"quizzy-classroom/provider"
@@ -18,6 +19,7 @@ func Run(serviceConfig *model.ServiceConfig) {
 		EnablePrintRoutes: true,
 	})
 	app.Use(recover.New())
+	app.Use(cors.New(cors.Config{}))
 
 	provider, err := provider.Init(serviceConfig)
 	if err != nil {
