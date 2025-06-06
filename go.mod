@@ -6,7 +6,7 @@ require (
 	github.com/go-playground/validator/v10 v10.26.0
 	github.com/gofiber/fiber/v2 v2.52.8
 	github.com/nedpals/supabase-go v0.5.0
-	github.com/nnee2810/mimi-core v0.0.35
+	github.com/nnee2810/mimi-core v0.0.36
 	github.com/spf13/cobra v1.9.1
 	go.uber.org/zap v1.27.0
 	google.golang.org/grpc v1.72.2
