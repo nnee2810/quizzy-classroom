@@ -12,7 +12,7 @@ import (
 )
 
 type FilterJoinedClassroomsUseCase interface {
-	Execute(ctx context.Context, userID string, params req.FilterJoinedClassroomsReq) (*record.Pagination[entity.ClassroomEntity], error)
+	Execute(ctx context.Context, params req.FilterJoinedClassroomsReq) (*record.Pagination[entity.ClassroomEntity], error)
 }
 
 type filterJoinedClassroomsUseCaseImpl struct {
@@ -25,10 +25,10 @@ func NewFilterJoinedClassroomsUseCase(repo repository.Repository) FilterJoinedCl
 	}
 }
 
-func (u *filterJoinedClassroomsUseCaseImpl) Execute(ctx context.Context, userID string, params req.FilterJoinedClassroomsReq) (*record.Pagination[entity.ClassroomEntity], error) {
-	result, err := u.Repo.FilterJoinedClassrooms(ctx, userID, params.Role, params)
+func (u *filterJoinedClassroomsUseCaseImpl) Execute(ctx context.Context, params req.FilterJoinedClassroomsReq) (*record.Pagination[entity.ClassroomEntity], error) {
+	result, err := u.Repo.FilterJoinedClassrooms(ctx, params)
 	if err != nil {
-		logger.Error("failed to filter joined classrooms with role", zap.String("user id", userID), zap.String("role", string(params.Role)), zap.Error(err))
+		logger.Error("failed to filter joined classrooms with role", zap.String("user id", params.UserID), zap.String("role", string(params.Role)), zap.Error(err))
 		return nil, err
 	}
 	return result, nil

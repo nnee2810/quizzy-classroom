@@ -21,7 +21,11 @@ func (h *handlerImpl) FilterJoinedClassrooms(c *fiber.Ctx) error {
 	// Lấy ID của người dùng hiện tại từ JWT token
 	userID := c.Locals("user_id").(string)
 
-	result, err := h.FilterJoinedClassroomsUseCase.Execute(c.Context(), userID, params)
+	if params.UserID == "" {
+		params.UserID = userID
+	}
+
+	result, err := h.FilterJoinedClassroomsUseCase.Execute(c.Context(), params)
 	if err != nil {
 		return res.InternalServerError(c, err)
 	}

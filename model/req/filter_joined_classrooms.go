@@ -8,5 +8,6 @@ import (
 
 type FilterJoinedClassroomsReq struct {
 	req.PaginationReq
-	Role entity.ClassroomMemberRole `json:"role" query:"role" validate:"required"`
+	Role   entity.ClassroomMemberRole `json:"role" query:"role" validate:"required"`
+	UserID string                     `json:"user_id" query:"user_id"`
 }

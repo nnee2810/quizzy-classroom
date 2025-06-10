@@ -10,7 +10,7 @@ import (
 	"github.com/nnee2810/mimi-core/value"
 )
 
-func (r *repositoryImpl) FilterJoinedClassrooms(ctx context.Context, userID string, role entity.ClassroomMemberRole, params req.FilterJoinedClassroomsReq) (*record.Pagination[entity.ClassroomEntity], error) {
+func (r *repositoryImpl) FilterJoinedClassrooms(ctx context.Context, params req.FilterJoinedClassroomsReq) (*record.Pagination[entity.ClassroomEntity], error) {
 	var pagination = record.Pagination[entity.ClassroomEntity]{
 		Page:  value.GetValue(params.Page, 0),
 		Limit: value.GetValue(params.Limit, 0),
@@ -22,7 +22,7 @@ func (r *repositoryImpl) FilterJoinedClassrooms(ctx context.Context, userID stri
 		WithContext(ctx).
 		Table("quizzy_classroom.classrooms AS c").
 		Joins("JOIN quizzy_classroom.classroom_members AS m ON c.id = m.classroom_id").
-		Where("m.user_id = ? AND m.role = ?", userID, role).
+		Where("m.user_id = ? AND m.role = ?", params.UserID, params.Role).
 		Scopes(gorm.Paginate(&pagination)).
 		Find(&classrooms).
 		Error; err != nil {
