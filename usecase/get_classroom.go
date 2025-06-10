@@ -24,7 +24,7 @@ func NewGetClassroomUseCase(repo repository.Repository) GetClassroomUseCase {
 }
 
 func (g *getClassroomUseCaseImpl) Execute(ctx context.Context, classroomID string) (*entity.ClassroomEntity, error) {
-	classroom, err := g.Repo.GetClassroomByID(ctx, classroomID)
+	classroom, err := g.Repo.GetClassroomByID(ctx, classroomID, true)
 	if err != nil {
 		logger.Error("failed to get classroom by id", zap.Error(err), zap.String("classroom_id", classroomID))
 		return nil, err

@@ -11,7 +11,7 @@ import (
 
 type Repository interface {
 	CreateClassroom(ctx context.Context, classroom *entity.ClassroomEntity) error
-	GetClassroomByID(ctx context.Context, classroomID string) (*entity.ClassroomEntity, error)
+	GetClassroomByID(ctx context.Context, classroomID string, includeDetail bool) (*entity.ClassroomEntity, error)
 	FilterClassrooms(ctx context.Context, params req.FilterClassroomsReq) (*record.Pagination[entity.ClassroomEntity], error)
 	FilterClassroomMembers(ctx context.Context, classroomID string, params req.FilterClassroomMembersReq) (*record.Pagination[entity.ClassroomMemberEntity], error)
 	CreateInvitation(ctx context.Context, invitation *entity.InvitationEntity) error
@@ -29,7 +29,7 @@ type Repository interface {
 	DeleteInvitation(ctx context.Context, invitationID string) error
 
 	GetUserIDByEmail(ctx context.Context, email string) (string, error)
-	GetUserProfilesByIDs(ctx context.Context, userIDs []string) (map[string]entity.UserProfileEntity, error)
+	GetUserProfilesByIDs(userIDs []string) (map[string]entity.UserProfileEntity, error)
 }
 
 type repositoryImpl struct {

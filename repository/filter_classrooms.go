@@ -31,7 +31,7 @@ func (r *repositoryImpl) FilterClassrooms(ctx context.Context, params req.Filter
 		userIDs[i] = classroom.UserID
 	}
 
-	userMap, err := r.GetUserProfilesByIDs(ctx, userIDs)
+	userMap, err := r.GetUserProfilesByIDs(userIDs)
 	if err != nil {
 		return nil, err
 	}
