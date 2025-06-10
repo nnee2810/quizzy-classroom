@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	gorm2 "gorm.io/gorm"
 	"quizzy-classroom/entity"
 	"quizzy-classroom/model/req"
 
@@ -22,8 +23,16 @@ func (r *repositoryImpl) FilterJoinedClassrooms(ctx context.Context, params req.
 		WithContext(ctx).
 		Table("quizzy_classroom.classrooms AS c").
 		Joins("JOIN quizzy_classroom.classroom_members AS m ON c.id = m.classroom_id").
-		Where("m.user_id = ? AND m.role = ?", params.UserID, params.Role).
-		Scopes(gorm.Paginate(&pagination)).
+		Scopes(func(db *gorm2.DB) *gorm2.DB {
+			if params.UserID != "" {
+				db = db.Where("m.user_id = ?", params.UserID)
+			}
+			if params.Role != "" {
+				db = db.Where("m.role = ?", params.Role)
+			}
+			return db
+		}, gorm.Paginate(&pagination)).
+		Preload("Members", "user_id = ?", params.UserID).
 		Find(&classrooms).
 		Error; err != nil {
 		return nil, err
